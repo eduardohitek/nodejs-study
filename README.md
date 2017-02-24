@@ -1,2 +1,2 @@
 # nodejs-study
-firsts steps using nodejs
+first steps using nodejs
