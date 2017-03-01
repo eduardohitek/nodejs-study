@@ -1,6 +1,6 @@
 var pg = require('pg');
 
-module.exports = function() {
+var connPg = function() {
 
     var config = {
         user: 'node', //env var: PGUSER
@@ -15,4 +15,9 @@ module.exports = function() {
     var pool = new pg.Pool(config);
     return pool;
 
+}
+
+module.exports = function () {
+  console.log('Connected to the DB!')
+  return connPg;
 }

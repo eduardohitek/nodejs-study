@@ -1,10 +1,10 @@
-var dbConnection = require('../../config/dbConnection');
-
 module.exports = function(app) {
 
-    var pool = dbConnection();
+
 
     app.get('/noticias', function(req, res) {
+
+          var pool = app.config.dbConnection();
 
         pool.connect(function(err, client, done) {
             if (err) {
