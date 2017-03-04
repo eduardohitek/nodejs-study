@@ -1,15 +1,14 @@
 module.exports = function(app) {
 
-
-
     app.get('/noticias', function(req, res) {
 
-          var pool = app.config.dbConnection();
-          var noticiasDAO = new app.app.models.NoticiasDAO(pool);
+        app.app.controllers.noticias.get_noticias(app, req, res);
 
-          noticiasDAO.getNoticias(function(err, result) {
-              res.render("noticias/noticias", {noticias : result.rows});
-          });
+    });
+
+    app.get('/noticia', function(req, res) {
+        app.app.controllers.noticias.get_noticia(app, req, res);
+
 
     });
 };
