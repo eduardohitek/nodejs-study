@@ -38,7 +38,8 @@ NoticiasDAO.prototype.salvarNoticia = function(noticia, callback) {
         if (err) {
             return console.error('error fetching client from pool', err);
         }
-        client.query('insert into noticias(titulo, noticia) values($1, $2)', [noticia.titulo, noticia.noticia], callback);
+        client.query('insert into noticias(titulo, noticia, resumo, autor, data_noticia) values($1, $2, $3, $4, $5)',
+        [noticia.titulo, noticia.noticia, noticia.resumo, noticia.autor, noticia.data_noticia], callback);
 
         done(err);
 
