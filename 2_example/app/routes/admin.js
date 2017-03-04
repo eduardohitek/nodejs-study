@@ -9,9 +9,9 @@ module.exports = function(app) {
 
 
         var pool = app.config.dbConnection();
-        var noticiasModel = app.app.models.noticiasModel;
+        var noticiasDAO = new app.app.models.NoticiasDAO(pool);
 
-        noticiasModel.salvarNoticia(noticia, pool, function(err, result) {
+        noticiasDAO.salvarNoticia(noticia, function(err, result) {
             res.redirect('/noticias');
         });
     });
