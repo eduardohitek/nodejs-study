@@ -2,11 +2,26 @@
 	<html lang="pt-br">
 		<head>
 			<meta charset="utf-8"/>
-			<title>Portal de notícias</title>
+			<title>Notícias</title>
 		</head>
 	<body>
 
-		<h1>Notícia</h1>
+		<h1>Notícias</h1>
+		<table>
+			<tr>
+				<td>ID</td>
+				<td>Título</td>
+				<td>Noticia</td>
+			</tr>
+
+
+			<tr>
+				<td><%= noticias[0].id_noticias %></td>
+				<td><%= noticias[0].titulo %></td>
+				<td><%= noticias[0].noticia %></td>
+			</tr>
+
+		</table>
 
 	</body>
 </html>
