@@ -49,6 +49,21 @@ NoticiasDAO.prototype.salvarNoticia = function(noticia, callback) {
     });
 }
 
+NoticiasDAO.prototype.getUltimasNoticias = function(qtd, callback) {
+  this._pool.connect(function(err, client, done){
+    if (err) {
+      return console.error('Error on creating connection', err);
+    }
+    client.query('select * from noticias order by data_criacao desc limit $1', [qtd], callback);
+
+    done(err);
+
+    if (err) {
+      return console.error('error running query', err);
+    }
+  });
+}
+
 
 
 module.exports = function() {

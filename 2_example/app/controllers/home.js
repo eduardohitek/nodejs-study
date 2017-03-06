@@ -1,3 +1,9 @@
 module.exports.index = function(app, req, res) {
-    res.render("home/index");
+
+  var pool = app.config.dbConnection();
+  var noticiasDAO = new app.app.models.NoticiasDAO(pool);
+
+    noticiasDAO.getUltimasNoticias(5, function(err, result){
+      res.render("home/index", {noticias : result.rows});
+    });
 }
