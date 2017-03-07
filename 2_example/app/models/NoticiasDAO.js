@@ -7,7 +7,7 @@ NoticiasDAO.prototype.getNoticias = function(callback) {
         if (err) {
             return console.error('error fetching client from pool', err);
         }
-        client.query('select * from noticias', callback);
+        client.query('select * from noticias order by data_criacao desc', callback);
 
         done(err);
 
@@ -17,12 +17,12 @@ NoticiasDAO.prototype.getNoticias = function(callback) {
     });
 }
 
-NoticiasDAO.prototype.getNoticia = function(callback) {
+NoticiasDAO.prototype.getNoticia = function(id_noticia, callback) {
     this._pool.connect(function(err, client, done) {
         if (err) {
             return console.error('error fetching client from pool', err);
         }
-        client.query('select * from noticias where id_noticias = 1', callback);
+        client.query('select * from noticias where id_noticias = $1',[id_noticia], callback);
 
         done(err);
 

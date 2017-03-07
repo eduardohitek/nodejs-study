@@ -46,12 +46,12 @@
 	    	<div class="row">
 	    		<div class="col-md-12">
 	    			<div class="noticia_wrapper">
-		    			<span class="noticia_autor">Por Jorge</span>
-		    			<a href="noticia/1" class="noticia_titulo">Título da notícia</a>
-		    			<span class="noticia_data">07/09/2016</span>
+		    			<span class="noticia_autor">Por <%= noticia[0].autor%></span>
+		    			<a href="noticia/1" class="noticia_titulo"><%= noticia[0].titulo%></a>
+		    			<span class="noticia_data"><%= moment(noticia[0].data_noticia).format('DD-MM-YYYY') %></span>
 		    			<br />
 		    			<p class="noticia_resumo">
-		    				Aqui fica o texto da notícia na íntegra.
+		    				<%= noticia[0].resumo %>
 		    			</p>
 		    		</div>
 		    	</div>
