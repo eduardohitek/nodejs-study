@@ -18,5 +18,13 @@ module.exports.cadastrar = function(application, req, res){
     return
   }
 
+  let connection = application.config.dbConnection;
+
+  let UsuariosDAO = new application.app.models.UsuariosDAO(connection);
+
+  UsuariosDAO.inserirUsuario(dadosForm);
+
+
+
   res.send("Teste Cadastro!");
 }
