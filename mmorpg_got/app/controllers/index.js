@@ -1,7 +1,9 @@
+//noinspection JSUnresolvedVariable
 module.exports.home = function(application, req, res){
   res.render('index', {validacao: {}, dadosForm: {}});
 }
 
+//noinspection JSUnresolvedVariable
 module.exports.autenticar = function(application, req, res){
   let dadosForm = req.body;
 
