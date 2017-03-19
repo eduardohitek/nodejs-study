@@ -3,7 +3,7 @@ let http = require('http')
 let opcoes = {
     hostname: 'localhost',
     port: 1717,
-    path: '/',
+    path: '/teste',
     method: 'post',
     headers: {
         'Accept': 'application/json',
@@ -27,6 +27,7 @@ let req = http.request(opcoes, function(res) {
     res.on('end', function(pedaco) {
         let corpo_response = Buffer.concat(buffer_corpo_responde).toString()
         console.log(corpo_response)
+        console.log(res.statusCode)
     })
 
 })
