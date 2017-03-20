@@ -1,7 +1,9 @@
 let express = require('express')
 let bodyParser = require('body-parser')
+let multiparty = require('connect-multiparty')
 let mongodb = require('mongodb')
 let objectID = require('mongodb').ObjectID
+let fs = require('fs')
 
 let app = express()
 
@@ -9,6 +11,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 app.use(bodyParser.json())
+app.use(multiparty())
 
 let port = 8080
 
@@ -28,7 +31,30 @@ app.get('/', function(req, res) {
 })
 
 app.post('/api', function(req, res) {
-    let dados = req.body
+
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    let date = new Date()
+    let time_stamp = date.getTime()
+    let url_imagem = time_stamp + '_' + req.files.arquivo.originalFilename
+
+
+    let path_origem = req.files.arquivo.path
+    let path_destino = './uploads/' + url_imagem
+
+    fs.rename(path_origem, path_destino, function(err) {
+        if (err) {
+            res.status(500).json({
+                error: err
+            })
+            return
+        }
+    })
+
+    let dados = {
+        url_imagem: url_imagem,
+        titulo: req.body.titulo
+    }
+
 
     db.open(function(err, mongoclient) {
         mongoclient.collection('postagens', function(err, collection) {
@@ -45,6 +71,7 @@ app.post('/api', function(req, res) {
 })
 
 app.get('/api', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
 
     db.open(function(err, mongoclient) {
         mongoclient.collection('postagens', function(err, collection) {
@@ -57,6 +84,20 @@ app.get('/api', function(req, res) {
                 mongoclient.close()
             })
         })
+    })
+})
+
+app.get('/uploads/:imagem', function(req, res) {
+    let img = req.params.imagem
+    fs.readFile('./uploads/' + img, function(err, content) {
+        if (err) {
+            res.status(400).json(err)
+            return
+        }
+        res.writeHead(200, {
+            'content-type': 'image/jpg'
+        })
+        res.end(content)
     })
 })
 
